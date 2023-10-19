@@ -1,6 +1,4 @@
 import xml.etree.ElementTree as XML_module
-from PyQt5.QtCore import QObject, pyqtSignal
-from PyQt5.QtWidgets import QMessageBox
 
 
 class ConfigData:
@@ -12,7 +10,6 @@ class ConfigData:
         self.config_list = []
         self.error_check = self.get_root()
         self.get_config_data()
-        print(self.config_list)
 
     def get_root(self):
         try:

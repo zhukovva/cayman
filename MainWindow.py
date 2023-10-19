@@ -219,7 +219,10 @@ class Ui_MainWindow(object):
         self.tableView.setSelectionBehavior(1)
         self.tableView.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableView.verticalHeader().hide()
-        self.verticalLayout_2.addWidget(self.tableView)
+        #self.verticalLayout_2.addWidget(self.tableView)
+        self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout_2.addWidget(self.tableView)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label_1 = QtWidgets.QLabel(self.tab_1)
@@ -332,7 +335,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         self.new_model = QtGui.QStandardItemModel(parent=self)
-        model_header = ['Название', 'IP', 'Путь сохранения', 'Канал 1', 'Канал 2', 'Канал 3', 'Канал 4']
+        model_header = ['Название', 'IP', 'Путь сохранения']
         self.new_model.setHorizontalHeaderLabels(model_header)
 
     def retranslateUi(self, MainWindow):

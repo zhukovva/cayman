@@ -1,7 +1,6 @@
 from PyQt5 import QtWidgets, QtGui, QtCore
 import MainWindow
 from ConfigDataXml import ConfigData
-from PyQt5.QtCore import QObject, pyqtSignal
 
 
 class MyWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
@@ -16,6 +15,10 @@ class MyWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.error_window(self.config_data.error_message)
         if self.config_data.error_check:
             self.load_tableview()
+            self.radio_button_list = []
+            self.h_layout_list = []
+            self.v_layout = self.r_button_generator(self.new_model.rowCount())
+            self.horizontalLayout_2.addLayout(self.v_layout)
 
     @staticmethod
     def error_window(error_message):
@@ -36,8 +39,24 @@ class MyWindow(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
             self.new_model.appendRow(standard_item_list)
         self.tableView.setModel(self.new_model)
         self.tableView_2.setModel(self.new_model)
-        self.tableView.resizeColumnToContents(0)
-        self.tableView.resizeColumnToContents(1)
-        self.tableView.resizeColumnToContents(2)
-        self.tableView.resizeColumnToContents(3)
-        self.tableView_2.resizeColumnsToContents()
+
+    def r_button_generator(self, row_count):
+        self.radio_button_list = []
+        for row in range(0, row_count):
+            rb_list = []
+            for b_num in range(0, 4):
+                r_b = QtWidgets.QRadioButton(self.tab_1)
+                rb_list.append(r_b)
+            self.radio_button_list.append(rb_list)
+
+        self.h_layout_list = []
+        for row in self.radio_button_list:
+            h_layout = QtWidgets.QHBoxLayout(self.tab_1)
+            for button in row:
+                h_layout.addWidget(button)
+            self.h_layout_list.append(h_layout)
+
+        v_layout = QtWidgets.QVBoxLayout(self.tab_1)
+        for h_layout in self.h_layout_list:
+            v_layout.addLayout(h_layout)
+        return v_layout
