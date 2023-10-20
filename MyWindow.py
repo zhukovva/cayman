@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget,\
     QTabWidget, QGroupBox, QMessageBox, QRadioButton, QLabel, QSizePolicy
 from ConfigDataXml import ConfigData
+from MyWidgets.MyGroupBox import MyGroupBox
 
 
 class MyWindow(QMainWindow):
@@ -79,7 +80,8 @@ class MyWindow(QMainWindow):
 
         i = 0
         for row in self.radio_button_list:
-            group_box = QGroupBox()
+            group_box = MyGroupBox()
+            group_box.setStyleSheet("background: rgb(82, 82, 82); border-radius: 3px;")
             h_layout = QHBoxLayout(self.tab_1)
             label_name = QLabel(self.config_data_list[i][0])
             label_ip = QLabel(self.config_data_list[i][1])
