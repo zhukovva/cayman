@@ -74,7 +74,6 @@ class MyWindow(QMainWindow):
         self.progress_bar.setObjectName("progressBar")
         self.vertical_layout_2.addWidget(self.progress_bar)
 
-
         self.tab_widget.addTab(self.tab_1, "")
         """Tab_2"""
         self.tab_2 = QWidget()
@@ -141,7 +140,10 @@ class MyWindow(QMainWindow):
         for group_box in self.group_box_list:
             v_layout.addWidget(group_box)
         return v_layout
-
+    def mouseDoubleClickEvent(self, event):
+        self.test()
+    def test(self):
+        print("double click")
     def style(self):
         self.setStyleSheet("QMainWindow {\n"
                            "    background-color:rgb(82, 82, 82);\n"
