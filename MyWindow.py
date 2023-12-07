@@ -37,6 +37,7 @@ class MyWindow(QMainWindow):
         self.label_header_name = QLabel("Название")
         self.label_header_name.setAlignment(Qt.AlignCenter)
         self.label_header_ip = QLabel("IP адрес")
+        self.label_header_ip.setObjectName("label_header_ip")
         self.label_header_ip.setAlignment(Qt.AlignCenter)
         self.label_header_path = QLabel("Путь сохранения")
         self.label_header_path.setAlignment(Qt.AlignCenter)
@@ -58,6 +59,7 @@ class MyWindow(QMainWindow):
         self.horizontal_layout_2 = QHBoxLayout(self.tab_1)
         self.label_status = MyLabel("file_name + status")
         self.button_download = QPushButton("Загрузить")
+        self.button_download.clicked.connect(self.download_button_click)
         self.dateEdit = QDateEdit(self.tab_1)
         self.dateEdit.setDateTime(QDateTime(QDate(2023, 1, 1), QTime(0, 0, 0)))
         self.dateEdit.setCalendarPopup(True)
@@ -68,11 +70,6 @@ class MyWindow(QMainWindow):
         self.horizontal_layout_2.addWidget(self.dateEdit)
         self.horizontal_layout_2.addWidget(self.button_download)
         self.vertical_layout_2.addLayout(self.horizontal_layout_2)
-        """Tab_1 progress bar"""
-        self.progress_bar = QProgressBar(self.tab_1)
-        self.progress_bar.setProperty("value", 50)
-        self.progress_bar.setObjectName("progressBar")
-        self.vertical_layout_2.addWidget(self.progress_bar)
 
         self.tab_widget.addTab(self.tab_1, "")
         """Tab_2"""
@@ -109,6 +106,7 @@ class MyWindow(QMainWindow):
             rb_list = []
             for b_num in range(0, 4):
                 r_b = QRadioButton(self.tab_1)
+                r_b.setObjectName(str(b_num))
                 r_b.setAutoExclusive(False)
                 rb_list.append(r_b)
             self.radio_button_list.append(rb_list)
@@ -119,8 +117,11 @@ class MyWindow(QMainWindow):
             group_box.setStyleSheet("background: rgb(82, 82, 82); border-radius: 3px;")
             h_layout = QHBoxLayout(self.tab_1)
             label_name = QLabel(self.config_data_list[i][0])
+            label_name.setObjectName("label_name")
             label_ip = QLabel(self.config_data_list[i][1])
+            label_ip.setObjectName("label_ip")
             label_path = QLabel(self.config_data_list[i][2])
+            label_path.setObjectName("label_path")
             label_name.setSizePolicy(self.label_size_policy)
             label_ip.setSizePolicy(self.label_size_policy)
             label_path.setSizePolicy(self.label_size_policy)
@@ -141,10 +142,27 @@ class MyWindow(QMainWindow):
         for group_box in self.group_box_list:
             v_layout.addWidget(group_box)
         return v_layout
-    def mouseDoubleClickEvent(self, event):
-        self.test()
-    def test(self):
-        print("double click")
+
+    def download_button_click(self):
+        for group_box in self.group_box_list:
+            label_ip = group_box.findChild(QLabel, 'label_ip')
+            if label_ip.text() in self.label_status.download_list:
+                download_config_list = []
+                label_name = group_box.findChild(QLabel, 'label_name')
+                download_config_list.append(label_name.text())
+                download_config_list.append(label_ip.text())
+                label_path = group_box.findChild(QLabel, 'label_path')
+                download_config_list.append(label_path.text())
+                radio_b1 = group_box.findChild(QRadioButton, '0')
+                download_config_list.append(str(radio_b1.isChecked()))
+                radio_b2 = group_box.findChild(QRadioButton, '1')
+                download_config_list.append(str(radio_b2.isChecked()))
+                radio_b3 = group_box.findChild(QRadioButton, '2')
+                download_config_list.append(str(radio_b3.isChecked()))
+                radio_b4 = group_box.findChild(QRadioButton, '3')
+                download_config_list.append(str(radio_b4.isChecked()))
+                print(download_config_list)
+
     def style(self):
         self.setStyleSheet("QMainWindow {\n"
                            "    background-color:rgb(82, 82, 82);\n"
