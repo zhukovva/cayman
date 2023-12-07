@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QMainWindow, QVBoxLayout, QHBoxLayout, QWidget, \
 from PyQt5.QtCore import Qt, QDateTime, QDate, QTime
 from datetime import datetime
 from ConfigDataXml import ConfigData
-from MyWidgets.MyGroupBox import MyGroupBox
+from MyWidgets.MyGroupBox import MyGroupBox, MyLabel
 
 
 class MyWindow(QMainWindow):
@@ -56,7 +56,7 @@ class MyWindow(QMainWindow):
             self.vertical_layout_2.addLayout(self.vertical_layout_3)
         """Tab_1 Buttons"""
         self.horizontal_layout_2 = QHBoxLayout(self.tab_1)
-        self.label_status = QLabel("file_name + status")
+        self.label_status = MyLabel("file_name + status")
         self.button_download = QPushButton("Загрузить")
         self.dateEdit = QDateEdit(self.tab_1)
         self.dateEdit.setDateTime(QDateTime(QDate(2023, 1, 1), QTime(0, 0, 0)))
@@ -109,6 +109,7 @@ class MyWindow(QMainWindow):
             rb_list = []
             for b_num in range(0, 4):
                 r_b = QRadioButton(self.tab_1)
+                r_b.setAutoExclusive(False)
                 rb_list.append(r_b)
             self.radio_button_list.append(rb_list)
 

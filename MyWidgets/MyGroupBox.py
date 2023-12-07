@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QGroupBox
+from PyQt5.QtWidgets import QGroupBox, QLabel
 
 
 class MyGroupBox(QGroupBox):
@@ -21,5 +21,18 @@ class MyGroupBox(QGroupBox):
             if not self.check:
                 self.setStyleSheet("background: rgb(0, 128, 0); border-radius: 3px;")
                 self.check = True
+                combobox_child_label = self.findChild(QLabel)
+                parent_tab = self.parent()
+                parent_tab_child_label = parent_tab.findChild(MyLabel)
+                parent_tab_child_label.setText(f'Скачать с {combobox_child_label.text()}')
+
+
             else:
+                self.setStyleSheet("background: rgb(82, 82, 82); border-radius: 3px;")
                 self.check = False
+
+
+class MyLabel(QLabel):
+
+    def __init__(self, text):
+        super().__init__(text)
